@@ -1,0 +1,12 @@
+GIthub adding a project guide
+touch .gitignore
+git config --global user.name Anshu
+git config --global user.email "anshu.com"
+git init
+git add.
+git commit -m "Initial commit"
+git status(status to check status)
+$ ssh-keygen -t ed25519 -C "your_email@example.com"
+tail <path to id_rsa.pub> #add this to your github
+git remote add origin<ssh ur;.git>
+git push origin master
