@@ -1,0 +1,47 @@
+//express makes ur backend more smooth
+const express=require('express') ; //importing the  module
+
+const app=express();  //making a express app
+const port=80;
+const path=require('path')
+const fs=require('fs')
+//EXPRESS SPECIFIC STUFF
+app.use('/static',express.static('static'))//for serving static files
+app.use(express.urlencoded())
+
+//PUG SPECIFIC STUFF
+app.set('view engine','pug')//set the template engine as pug
+
+app.set('views',path.join(__dirname,'views'))//set the views directory
+
+app.get('/demo',(req,res)=>{
+    res.status(200).render('demo', { title: 'Hey', message: 'Hello there! and thanx for telling bout pug' })
+}) //our pug demo endpoint
+
+
+//END POINTS
+app.get("/",(req,res)=>{
+    const con="This is the best content"
+    const params={'title':"Pubg is the best game","content":con}
+    res.status(200).render('index.pug',params)
+})
+app.post('/',(req,res)=>{
+    name=(req.body).name;
+    age=(req.body).age;
+    gender=(req.body).gender;
+    adress=(req.body).adress;
+    more=(req.body).more;
+
+    let outputtowrite=`The name of client is ${name}, ${age}years old,${gender},residing at ${adress},More about the person:${more}`
+
+    fs.writeFileSync('output.txt',outputtowrite)
+
+    const params={'message':"Your form has been submited successfully"}
+    res.status(200).render('index.pug',params)
+
+})
+
+//START THE SERVER
+app.listen(port,()=>{
+    console.log(`The application started succesfully on ${port}`);
+})
